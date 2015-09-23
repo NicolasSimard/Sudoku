@@ -25,24 +25,23 @@ def col(i,j):
 
 #Returns all then cells in the same block as (i,j) (excluding cells above)
 def block(i,j):
-    return [(k + i//3,l + j//3) for k in range(3)
-                                for l in range(3)
-                                if not (k == i%3 or l == j%3)]
+    return [(k + 3*(i//3),l + 3*(j//3)) for k in range(3) for l in range(3)
+                                        if not (k == i%3 or l == j%3)]
 
 def neighbors(i,j):
     return row(i,j) + col(i,j) + block(i,j)
 
 def set(coord, value):
     global sudoku, pointer, verb
-    pointer = coord
     if verb:
+        pointer = coord
         print("Setting cell",sudoku[coord]["coord"],"to",value)
         print("Number of possibilities:",len(sudoku[coord]["possibilities"]))
     sudoku[coord]["value"] = (value, turn)
     sudoku[coord]["possibilities"] = {}
     for ij in sudoku[coord]["neighbors"]:
-        pointer = ij
         if verb:
+            pointer = ij
             sudoku_print()
             input()
         if value in sudoku[ij]["possibilities"].keys():
@@ -50,6 +49,7 @@ def set(coord, value):
         if len(sudoku[ij]["possibilities"]) == 1:
             v = list(sudoku[ij]["possibilities"].keys())[0]
             set(ij, v)
+
 
 #1 Read the Sudoku puzzle
 sudoku = {}
@@ -76,5 +76,7 @@ for coord in initial_coord:
     set(coord,sudoku[coord]["value"][0])
 
 sudoku_print()
-for coord, cell in sudoku.items():
-    print(len(cell["possibilities"]))
+
+if verb:
+    for coord, cell in sudoku.items(): print(len(cell["neighbors"]))
+
