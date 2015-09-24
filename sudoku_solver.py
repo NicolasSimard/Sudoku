@@ -55,7 +55,7 @@ def set(coord, value):
 sudoku = {}
 initial_coord = []
 i = 0
-file = open("easy1.txt","r")
+file = open("hard1.txt","r")
 for line in file:
     values = list(map(int,line.split()))
     for j in range(9):
@@ -68,6 +68,7 @@ for line in file:
         if sudoku[(i,j)]["value"][0] != 0: initial_coord.append((i,j))
     i += 1
 
+print("Initial puzzle:")
 sudoku_print()
 
 #Initialize the sudoku with the initial values
@@ -75,8 +76,8 @@ for coord in initial_coord:
     if verb: print("In init loop with cell",coord)
     set(coord,sudoku[coord]["value"][0])
 
+print("After initialization:")
 sudoku_print()
 
-if verb:
-    for coord, cell in sudoku.items(): print(len(cell["neighbors"]))
+# for coord, cell in sudoku.items(): print(len(cell["possibilities"]))
 
