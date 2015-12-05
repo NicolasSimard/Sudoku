@@ -46,7 +46,8 @@ def set(coord, value):
         if len(sudoku[ij][1]) == 0 and sudoku[ij][0] == 0: # We have a contradiction
             return False
         if len(sudoku[ij][1]) == 1: # This cell is determined
-            return set(ij, sudoku[ij][1][0])
+            if not set(ij, sudoku[ij][1][0]): # If it leads to a contradiction
+                return False
     return True
 
 import time
