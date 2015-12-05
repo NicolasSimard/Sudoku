@@ -23,7 +23,6 @@ def neighbors(i,j): # neighbors does not include (i,j)
 
 
 def guess(coord, value, hist):
-    global sudoku
     sudoku[coord][0] = value
     sudoku[ij][1].remove(value)
     hist.append((coord, value)) # means tried value value at cell coord
@@ -37,7 +36,6 @@ def guess(coord, value, hist):
                 guess(ij, sudoku[ij][1], hist)
 
 def set(coord, value):
-    global sudoku
     sudoku[coord] = [value,[]]
     for ij in neighbors(*coord):
         if value in sudoku[ij][1]:
@@ -60,7 +58,7 @@ for coord in [(i,j) for i in range(9) for j in range(9)]:
 
 #2 Initializing sudoku
 i = 0
-file = open("easy1.txt","r")
+file = open("hard1.txt","r")
 for line in file:
     for x in enumerate(list(map(int,line.split()))):
         if x[1] != 0: set((i,x[0]),x[1])
